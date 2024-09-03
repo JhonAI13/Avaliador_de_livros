@@ -104,3 +104,5 @@ def palavras_tokenizadas(caminho_pdf):
     lista_ordenada = sorted(palavras_tokenizadas)
     # lista_ordenada.to_excel(r'C:\Users\jonat\Documents\GitHub\Avaliador_de_livros\palavras.xlsx', index=False) 
     return lista_ordenada
+
+

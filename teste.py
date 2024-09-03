@@ -1,19 +1,36 @@
-from spellchecker import SpellChecker
+import pandas as pd
+import nltk
+from nltk.corpus import stopwords
 
-def corrigir_palavra(palavra):
-    # Cria um objeto SpellChecker
-    spell = SpellChecker()
-    
-    # Corrige a palavra
-    palavra_corrigida = spell.candidates(palavra)
-    if palavra_corrigida:
-        # Retorna a palavra mais provável (ou a primeira se houver várias)
-        return spell.candidates(palavra).pop()
-    else:
-        return palavra
+def remove_stopwords_df(df, coluna_palavras):
+    """
+    Remove stopwords de um DataFrame de palavras e cria um novo DataFrame 
+    com as palavras não stopwords e seus tokens.
 
-# Testa a função com uma palavra errada
-palavra_errada = 'gigima'
-palavra_corrigida = corrigir_palavra(palavra_errada)
-print(f'Palavra original: {palavra_errada}')
-print(f'Palavra corrigida: {palavra_corrigida}')
+    Args:
+        df (pd.DataFrame): DataFrame contendo as palavras e seus tokens.
+        coluna_palavras (str): Nome da coluna que contém as palavras.
+
+    Returns:
+        pd.DataFrame: Um novo DataFrame com as palavras não stopwords e 
+                       seus tokens.
+    """
+
+    nltk.download('stopwords', quiet=True)
+    stop_words = set(stopwords.words('english'))
+
+    # Filtra as stopwords do DataFrame
+    df_sem_stopwords = df[~df[coluna_palavras].isin(stop_words)]
+
+    return df_sem_stopwords
+
+# Dados de exemplo (ajuste conforme necessário)
+dados = {'Palavras': ['the', 'and', 'to', 'a', 'she', 'joys', 'rememberingher', 'childlife', 'happy', 'aftertime'],
+        'token': [1319, 696, 638, 537, 442, 1, 1, 1, 1, 1]}
+df = pd.DataFrame(dados)
+
+# Remove as stopwords
+df_limpo = remove_stopwords_df(df, 'Palavras')
+
+# Exibe o DataFrame resultante
+print(df_limpo)
