@@ -102,7 +102,7 @@ def palavras_tokenizadas(caminho_pdf):
     palavras_tokenizadas = frequencia_palavras(lista_paginas_sem_pontuação)
 
     lista_ordenada = sorted(palavras_tokenizadas)
-    # lista_ordenada.to_excel(r'C:\Users\jonat\Documents\GitHub\Avaliador_de_livros\palavras.xlsx', index=False) 
+    lista_ordenada.to_excel(r'C:\Users\jonat\Documents\GitHub\Avaliador_de_livros\palavras.xlsx', index=False) 
     return lista_ordenada
 
 
